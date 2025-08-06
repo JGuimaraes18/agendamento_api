@@ -12,4 +12,4 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["gunicorn", "agenda_api.wsgi:application", "-b", "0.0.0.0:10000"]
+CMD ["gunicorn", "agendamento_api.wsgi:application", "-b", "0.0.0.0:10000"]
