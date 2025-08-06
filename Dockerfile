@@ -12,4 +12,4 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["sh", "-c", "python manage.py migrate && python create_superuser.py && gunicorn agendamento_api.wsgi:application --bind 0.0.0.0:$PORT"]
+CMD ["sh", "-c", "python manage.py migrate && echo 'Migrações aplicadas' && python create_superuser.py && gunicorn agendamento_api.wsgi:application --bind 0.0.0.0:$PORT"]
