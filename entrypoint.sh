@@ -1,14 +1,9 @@
-#!/bin/sh
+#!/bin/sh -x
 
 echo "Iniciando o processo de deploy..."
 
 echo "Rodando as migrações..."
-if python manage.py migrate; then
-  echo "Migrações aplicadas com sucesso."
-else
-  echo "Erro ao aplicar migrações!"
-  exit 1
-fi
+python manage.py migrate
 
 echo "Criando superusuário (se não existir)..."
 python create_superuser.py
