@@ -16,4 +16,4 @@ RUN python manage.py collectstatic --noinput
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
-CMD ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
