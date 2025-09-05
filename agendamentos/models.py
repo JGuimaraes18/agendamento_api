@@ -1,11 +1,11 @@
 from django.db import models
 from pacientes.models import Paciente
-from profissionais.models import Profissional
+from profissionais.models import Profissional, Especialidade
 
 class Consulta(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     profissional = models.ForeignKey(Profissional, on_delete=models.CASCADE)
-    especialidade = models.CharField(max_length=100)
+    especialidade = models.ForeignKey(Especialidade, on_delete=models.CASCADE)
     data_hora = models.DateTimeField()
     observacoes = models.TextField(blank=True)
     realizada = models.BooleanField(default=False)
