@@ -1,54 +1,29 @@
 from rest_framework import serializers
 from .models import Consulta
-from pacientes.serializers import PacienteSerializer
-from profissionais.serializers import ProfissionalSerializer, EspecialidadeSerializer, PlanoSaudeSerializer
 
 class ConsultaSerializer(serializers.ModelSerializer):
-    paciente = PacienteSerializer(read_only=True)
-    profissional = ProfissionalSerializer(read_only=True)
-    especialidade = EspecialidadeSerializer(read_only=True)
-    plano = PlanoSaudeSerializer(read_only=True) 
-
     paciente_id = serializers.PrimaryKeyRelatedField(
-        queryset=PacienteSerializer.Meta.model.objects.all(),
-        source='paciente',
+        source="paciente",
+        queryset=Consulta._meta.get_field("paciente").remote_field.model.objects.all(),
         write_only=True,
         label="Paciente"
     )
-    profissional_id = serializers.PrimaryKeyRelatedField(
-        queryset=ProfissionalSerializer.Meta.model.objects.all(),
-        source='profissional',
-        write_only=True,
-        label="Profissional"
-    )
-    especialidade_id = serializers.PrimaryKeyRelatedField(
-        queryset=EspecialidadeSerializer.Meta.model.objects.all(),
-        source='especialidade',
-        write_only=True,
-        label="Especialidade" 
-    )
-    plano_id = serializers.PrimaryKeyRelatedField(
-        queryset=PlanoSaudeSerializer.Meta.model.objects.all(),
-        source='plano',
-        write_only=True,
-        required=False,
-        allow_null=True,
-        label="Nome do Plano" 
-    )
-
-    tem_convenio = serializers.BooleanField(label="Plano de Saúde", required=False)
+    paciente_nome = serializers.CharField(source="paciente.nome", read_only=True)
+    profissional_nome = serializers.CharField(source="profissional.nome", read_only=True)
+    especialidade_nome = serializers.CharField(source="especialidade.nome", read_only=True)
+    plano_nome = serializers.CharField(source="plano.nome", read_only=True)
 
     class Meta:
         model = Consulta
         fields = [
-            'id',
-            'paciente', 'paciente_id',
-            'profissional', 'profissional_id',
-            'especialidade', 'especialidade_id',
-            'tem_convenio',
-            'plano', 'plano_id',
-            'data_hora',
-            'realizada',
-            'observacoes',
-            'valor',
+            "id",
+            "paciente_id", "paciente_nome",
+            "profissional_nome",
+            "especialidade_nome",
+            "plano_nome",
+            "tem_convenio",
+            "data_hora",
+            "realizada",
+            "observacoes",
+            "valor",
         ]
