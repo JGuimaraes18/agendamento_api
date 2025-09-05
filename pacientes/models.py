@@ -1,4 +1,5 @@
 from django.db import models
+from profissionais.models import PlanoSaude
 
 class Paciente(models.Model):
     nome = models.CharField(max_length=200)
@@ -8,7 +9,7 @@ class Paciente(models.Model):
     telefone = models.CharField(max_length=20, blank=True)
     email = models.EmailField(unique=True)
     possui_plano_saude = models.BooleanField(default=False)
-    nome_plano_saude = models.CharField(max_length=200, blank=True, null=True)
+    plano_saude = models.ForeignKey(PlanoSaude,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
         return self.nome
