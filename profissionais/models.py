@@ -30,7 +30,7 @@ class Profissional(models.Model):
     especialidades = models.ManyToManyField(Especialidade, related_name="profissionais")
     planos_saude = models.ManyToManyField(PlanoSaude, blank=True, related_name="profissionais")
 
-    ativo = models.BooleanField(default=True)  # 👈 novo campo
+    ativo = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome

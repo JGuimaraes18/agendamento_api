@@ -9,7 +9,7 @@ class Paciente(models.Model):
     telefone = models.CharField(max_length=20, blank=True)
     email = models.EmailField(unique=True)
     possui_plano_saude = models.BooleanField(default=False)
-    plano_saude = models.ForeignKey(PlanoSaude,on_delete=models.SET_NULL,null=True,blank=True)
+    plano = models.ForeignKey(PlanoSaude,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
         return self.nome
